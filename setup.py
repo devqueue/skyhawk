@@ -15,7 +15,7 @@ classifiers = [
     'License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)',
     'Intended Audience :: End Users/Desktop',
     'Operating System :: OS Independent',
-    'Programming Language :: Python :: 3.7'
+    'Programming Language :: Python :: 3.9'
 ]
 
 def Longdesc():
@@ -30,7 +30,7 @@ def Longdesc():
 
 setup(
     name='skyhawk',
-    version='0.0.7',
+    version='0.0.8',
     description='Skyhawk is a CLI tool that can run on any device with a camera to recognize faces. It built with open-cv & python',
     long_description=Longdesc(),
     long_description_content_type="text/markdown",
