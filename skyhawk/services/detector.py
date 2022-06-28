@@ -4,6 +4,7 @@ import pickle
 import os
 from datetime import datetime
 import face_recognition
+import requests
 
 
 def run():
@@ -24,6 +25,7 @@ def run():
         student_names.append(students)
 
     def markattendance(name):
+        new = False
         with open('skyhawk/bin/Attendance.csv', 'r+') as f:
             dataList = f.readlines()
             nameList = []
@@ -31,14 +33,30 @@ def run():
                 entry = line.split(',')
                 nameList.append(entry[0])
             if name not in nameList:
+                new = True
                 now = datetime.now()
                 date = now.strftime('%b %d %Y')
                 day = now.strftime('%a')
                 time = now.strftime('%H:%M:%S')
                 f.writelines(f'\n{name}, {date}, {time}, {day}')
+        return new
+    
+
+    def send_to_db(prn):
+        data = {}
+        now = datetime.now()
+        data['Day'] = now.strftime("%Y-%m-%d")
+        data['TimeSlot'] = now.strftime("%H:%M:%S")
+        data['present'] = True
+        data['Student'] = prn
+        data['course'] = 'PE'
+        response = requests.post(url='http://localhost:8000/api', json=data)
+        return response
 
 
     capture = cv2.VideoCapture(0)
+
+    marked = []
 
     while True:
         #capturing face
@@ -61,15 +79,21 @@ def run():
             
             if matches[matchIndex]:
                 name = student_names[matchIndex].lower()
-                print(name)
                 y1,x2,y2,x1 = facelocation
                 #y1,x2,y2,x1 = y1,x2*2,y2*2,x1*2
                 cv2.rectangle(current_frame,(x1,y1),(x2,y2),(255,0,0),2)
                 cv2.rectangle(current_frame,(x1,y2-35),(x2,y2),(255,0,0),cv2.FILLED)
                 cv2.putText(current_frame,name,(x1+6,y2-6),cv2.FONT_HERSHEY_COMPLEX,1,(0,255,255),2)
 
-                markattendance(name)
-    
+                if name not in marked:
+                    response = send_to_db(name)
+                    print(name)
+                    if response == "BAD REQUEST":
+                        markattendance(name)
+                    else:
+                        marked.append(name)
+
+
         cv2.imshow("camera",current_frame)          
         if cv2.waitKey(20) & 0xFF==ord('q'):
             break
