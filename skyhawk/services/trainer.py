@@ -20,10 +20,10 @@ def Facetrainer():
 	student_names = []
 	mylist = os.listdir(image_dir)
 
-	for cl in mylist:
-		current_image = cv2.imread(f'{image_dir}/{cl}')
+	for image in mylist:
+		current_image = cv2.imread(f'{image_dir}/{image}')
 		images.append(current_image)
-		student_names.append(os.path.splitext(cl)[0])
+		student_names.append(os.path.splitext(image)[0])
 
 
 	#get encodings of known faces 
@@ -51,44 +51,6 @@ def Facetrainer():
 
 	print("Training completed")
 
-	# face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_frontalface_default.xml')
-	# recognizer = cv2.face.LBPHFaceRecognizer_create()
-	# current_id = 0
-	# label_ids = {}
-	# y_labels = []
-	# x_train = []
-
-	# for root, dirs, files in os.walk(image_dir):
-	# 	for file in files:
-	# 		if file.endswith("png") or file.endswith("jpg") or file.endswith("jpeg"):
-	# 			path = os.path.join(root, file)
-	# 			label = os.path.basename(root).replace(" ", "-").lower()
-	# 			#print(label, path)
-	# 			if not label in label_ids:
-	# 				label_ids[label] = current_id
-	# 				current_id += 1
-	# 			id_ = label_ids[label]
-	# 			#print(label_ids)
-	# 			pil_image = Image.open(path).convert("L")  # grayscale
-	# 			size = (200, 200)
-	# 			final_image = pil_image.resize(size, Image.ANTIALIAS)
-	# 			image_array = np.array(final_image, "uint8")
-	# 			#print(image_array)
-	# 			faces = face_cascade.detectMultiScale(image_array, scaleFactor=1.5, minNeighbors=5)
-
-	# 			for (x, y, w, h) in faces:
-	# 				roi = image_array[y:y+h, x:x+w]
-	# 				x_train.append(roi)
-	# 				y_labels.append(id_)
-
-	# #print(y_labels)
-	# #print(x_train)
-
-	# with open("skyhawk/bin/face-labels.pickle", 'wb') as f:
-	# 	pickle.dump(label_ids, f)
-
-	# recognizer.train(x_train, np.array(y_labels))
-	# recognizer.save("skyhawk/bin/face-trainner.yml")
 
 if __name__ == "__main__":
-    Facetrainer()
+	Facetrainer()

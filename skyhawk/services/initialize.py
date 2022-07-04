@@ -11,7 +11,7 @@ def run():
     os.makedirs(face_path, exist_ok=True)
     os.makedirs(bin_path, exist_ok=True)
     with open('skyhawk/bin/Attendance.csv', 'w') as file:
-        HEADER = "Name, Date, Time, Day "
+        HEADER = "prn, Date, Time, Day "
         file.write(HEADER)
     # with open('skyhawk/bin/trainer.py','w') as py:
     #   py.write(code)
