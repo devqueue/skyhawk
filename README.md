@@ -19,7 +19,7 @@ My mum being a teacher at my school I noticed she had to wait in a queue in the 
 You can initialize and register users and capture their faces.
 Make sure to  hold the camera in front of your face in a good lighting condition.
 1. `skyhawk init`
-2. Add one clear image of each person with their identifier
+2. Add one clear image of each person with their identifier in `facedata`
 3. `skyhawk train`
 Now run the application.
 4. `skyhawk run`
