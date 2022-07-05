@@ -19,9 +19,7 @@ My mum being a teacher at my school I noticed she had to wait in a queue in the 
 You can initialize and register users and capture their faces.
 Make sure to  hold the camera in front of your face in a good lighting condition.
 1. `skyhawk init`
-2. `skyhwak capture black` or `skyhawk capture color`
-you will be prompted to enter your name and the number of images. I recommend 20-30 images both grey scale and color.
-Once you have all the users registered you ca train the recognizer model.
+2. Add one clear image of each person with their identifier
 3. `skyhawk train`
 Now run the application.
 4. `skyhawk run`
